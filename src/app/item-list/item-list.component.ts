@@ -83,16 +83,16 @@ export class ItemListComponent {
     this.listService.get_data();
     this.filter_val.patchValue('');
     this.type = '';
+    this.listService.sort_type='id';
   }
 
   filter_type(type: any) {
     this.type = type;
     this.listService.get_data();
+    this.listService.sort_type='id';
   }
 
   search(val: any) {
-    console.log(val);
-
     let value = this.filter_val.value;
     this.filter_list = this.listService.item_list;
     this.listService.item_list = value ? this.filter_list.filter((item: any) => item[this.type] ? item[this.type].toLowerCase().includes(value.toLowerCase()) : null) : this.filter_list;

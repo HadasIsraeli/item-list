@@ -34,9 +34,9 @@
         <button type="submit" (click)="add_item()">Save</button>
     </div>
     <h4>sort by:</h4>
-    <button (click)="listService.sort('id')">id</button>
-    <button (click)="listService.sort('name')">name</button>
-    <button (click)="listService.sort('price')">price</button>
+    <button class="filter-type" [class.active-type]="listService.sort_type=='id'" (click)="listService.sort('id')">id</button>
+    <button class="filter-type" [class.active-type]="listService.sort_type=='name'" (click)="listService.sort('name')">name</button>
+    <button class="filter-type" [class.active-type]="listService.sort_type=='price'" (click)="listService.sort('price')">price</button>
 
     <div class="item-list">
         <table id="list-item-table" class="table">

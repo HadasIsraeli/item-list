@@ -13,6 +13,7 @@ export class ListServiceService {
   list_url = 'api/list';
 
   item_list: any;
+  sort_type: any='id';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -39,6 +40,7 @@ export class ListServiceService {
   }
 
   sort(type: any) {
+    this.sort_type = type;
     if (type == 'name') {
       this.item_list.sort(function (a: any, b: any) {
         return (a[type]).toLowerCase() < (b[type]).toLowerCase() ? -1 : 1;
