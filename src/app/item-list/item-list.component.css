@@ -1,0 +1,24 @@
+h2 {
+    padding: 20px 0;
+}
+
+.item-list {
+    padding:20px;
+    top: 130px;
+    left: 30px;
+}
+
+.table {
+    border: 1px solid rgb(197, 77, 77);
+}
+
+table caption {
+    padding: .5em 0;
+}
+
+.container {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    height: 100%;
+}

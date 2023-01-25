@@ -1,0 +1,68 @@
+<div class="container">
+
+    <h2>Item List Table</h2>
+
+    <h4>Add new item</h4>
+    <button *ngIf="!add_item_form" (click)="toggle_new_item()">add item</button>
+
+    <div *ngIf="add_item_form" class="add_item">
+        <button (click)="toggle_new_item()">close</button>
+
+        <form [formGroup]="itemForm">
+
+            <label for="name">Name: </label>
+            <input id="name" type="text" formControlName="name">
+
+            <label for="description">Description: </label>
+            <input id="description" type="text" formControlName="description">
+
+            <label for="price">Price: </label>
+            <input id="price" type="number" formControlName="price">
+
+        </form>
+        <button type="submit" (click)="add_item()">Save</button>
+    </div>
+    <h4>sort by:</h4>
+    <button (click)="listService.sort('id')">id</button>
+    <button (click)="listService.sort('name')">name</button>
+    <button (click)="listService.sort('price')">price</button>
+
+    <div class="item-list">
+        <table id="list-item-table" class="table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Action</th>
+
+            </tr>
+            <tr *ngFor="let item of listService.item_list;">
+                <th>{{item.id}}</th>
+                <th>{{item.name}}</th>
+                <th>{{item.description}}</th>
+                <th>{{item.price}}</th>
+                <button (click)="toggle_edit_item(item)">Edit</button>
+
+            </tr>
+        </table>
+    </div>
+
+    <div *ngIf="edit_item_form" class="add_item">
+        <button (click)="toggle_edit_item()">close</button>
+
+        <form [formGroup]="itemForm">
+
+            <label for="name">Name: </label>
+            <input id="name" type="text" formControlName="name">
+
+            <label for="description">Description: </label>
+            <input id="description" type="text" formControlName="description">
+
+            <label for="price">Price: </label>
+            <input id="price" type="number" formControlName="price">
+
+        </form>
+        <button type="submit" (click)="edit_item()">Save</button>
+    </div>
+</div>
