@@ -13,9 +13,13 @@ export class ItemListComponent {
 
 
   selected_item: any;
-  selected_item_id:any;
+  selected_item_id: any;
   add_item_form = false;
   edit_item_form = false;
+  filter_list: any;
+  type: any;
+
+  filter_val = new FormControl('');;
 
   itemForm = new FormGroup({
     name: new FormControl(''),
@@ -25,23 +29,19 @@ export class ItemListComponent {
 
   ngOnInit(): void {
     this.listService.get_data();
-
   }
 
   add_item() {
-    
-    console.log(this.itemForm.value);
-
     this.itemForm.value['id'] = this.listService.item_list.length + 1;
     this.listService.add_item(this.itemForm.value);
     this.toggle_new_item();
     this.clear_form();
   }
+
   toggle_new_item() {
     this.add_item_form = !this.add_item_form;
-    if(this.add_item_form){
-    this.clear_form();
-
+    if (this.add_item_form) {
+      this.clear_form();
     }
   }
 
@@ -49,7 +49,6 @@ export class ItemListComponent {
   toggle_edit_item(item?: any) {
     this.edit_item_form = !this.edit_item_form;
     if (item) {
-      console.log(item);
       this.itemForm.patchValue({
         name: item.name,
         description: item.description,
@@ -58,28 +57,46 @@ export class ItemListComponent {
       });
       this.itemForm.value['id'] = item.id;
       this.selected_item_id = item.id;
-    }else{
-    this.clear_form();
-
+    } else {
+      this.clear_form();
     }
   }
 
   edit_item() {
     this.itemForm.value['id'] = this.selected_item_id;
     this.selected_item = this.itemForm.value;
-    console.log(this.selected_item,this.itemForm.value);
-
     this.listService.edit_item(this.selected_item);
     this.toggle_edit_item();
     this.clear_form();
   }
 
   clear_form() {
-    this.selected_item_id=0;
+    this.selected_item_id = 0;
     this.itemForm.patchValue({
       name: '',
       description: '',
       price: null
     });
+  }
+
+  reset() {
+    this.listService.get_data();
+    this.filter_val.patchValue('');
+    this.type = '';
+  }
+
+  filter_type(type: any) {
+    this.type = type;
+    this.listService.get_data();
+  }
+
+  search(val: any) {
+    console.log(val);
+
+    let value = this.filter_val.value;
+    this.filter_list = this.listService.item_list;
+    this.listService.item_list = value ? this.filter_list.filter((item: any) => item[this.type] ? item[this.type].toLowerCase().includes(value.toLowerCase()) : null) : this.filter_list;
+    this.filter_val.patchValue('');
+
   }
 }

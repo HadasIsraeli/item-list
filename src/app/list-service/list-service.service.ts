@@ -30,12 +30,11 @@ export class ListServiceService {
   }
 
   edit_item(item: any) {
-    let url = this.list_url+'/'+(item.id);
+    let url = this.list_url + '/' + (item.id);
     this.http.put(url, item, this.httpOptions).subscribe((res) => {
-      console.log(res);
       this.get_data();
     }
-     
+
     );
   }
 
