@@ -6,20 +6,10 @@
     <h4>Add new item</h4>
     <button *ngIf="!add_item_form" (click)="toggle_new_item()">add item</button>
 
-    <div class="search-box">
-        <h4>filter item</h4>
-        <button class="filter-type" [class.active-type]="type=='name'" (click)="filter_type('name')">name</button>
-        <button class="filter-type" [class.active-type]="type=='description'" (click)="filter_type('description')">description</button>
-        <br />
-        <input id="filter_val" type="text" [formControl]="filter_val">
-        <button (click)="search(filter_val.value)">filter</button>
-        <button nz-button nzSize="small" (click)="reset()">Reset</button>
-    </div>
-
-    <div *ngIf="add_item_form" class="add_item">
+    <div *ngIf="add_item_form" class="add_item" class="form-card">
         <button (click)="toggle_new_item()">close</button>
 
-        <form [formGroup]="itemForm">
+        <form [formGroup]="itemForm" class="form">
 
             <label for="name">Name: </label>
             <input id="name" type="text" formControlName="name">
@@ -33,6 +23,17 @@
         </form>
         <button type="submit" (click)="add_item()">Save</button>
     </div>
+
+    <div class="search-box">
+        <h4>filter item</h4>
+        <button class="filter-type" [class.active-type]="type=='name'" (click)="filter_type('name')">name</button>
+        <button class="filter-type" [class.active-type]="type=='description'" (click)="filter_type('description')">description</button>
+        <br />
+        <input id="filter_val" type="text" [formControl]="filter_val">
+        <button (click)="search(filter_val.value)">filter</button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+
     <h4>sort by:</h4>
     <button class="filter-type" [class.active-type]="listService.sort_type=='id'" (click)="listService.sort('id')">id</button>
     <button class="filter-type" [class.active-type]="listService.sort_type=='name'" (click)="listService.sort('name')">name</button>
@@ -57,12 +58,13 @@
 
             </tr>
         </table>
+      
     </div>
 
-    <div *ngIf="edit_item_form" class="add_item">
+    <div *ngIf="edit_item_form" class="add_item" class="form-card">
         <button (click)="toggle_edit_item()">close</button>
 
-        <form [formGroup]="itemForm">
+        <form [formGroup]="itemForm"  class="form">
 
             <label for="name">Name: </label>
             <input id="name" type="text" formControlName="name">
@@ -75,5 +77,5 @@
 
         </form>
         <button type="submit" (click)="edit_item()">Save</button>
-    </div>
+    </div>     
 </div>

@@ -31,3 +31,18 @@ table caption {
     color:rgb(255, 255, 255);
     background-color:rgb(85, 83, 83);    
 }
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.form-card{
+    background: #cacaca;
+    padding: 10px;
+    position: fixed;
+    transform: translate(0%, 50%);
+    top: 0;
+    left: 50%;
+}

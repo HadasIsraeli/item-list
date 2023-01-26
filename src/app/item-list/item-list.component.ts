@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListServiceService } from '../list-service/list-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
+
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
@@ -11,13 +12,12 @@ export class ItemListComponent {
 
   constructor(public listService: ListServiceService) { }
 
-
   selected_item: any;
   selected_item_id: any;
   add_item_form = false;
   edit_item_form = false;
   filter_list: any;
-  type: any;
+  type: any='name';
 
   filter_val = new FormControl('');;
 
@@ -80,21 +80,20 @@ export class ItemListComponent {
   }
 
   reset() {
-    this.listService.get_data();
+    this.listService.item_list = this.listService.data_json;
     this.filter_val.patchValue('');
-    this.type = '';
-    this.listService.sort_type='id';
+    this.listService.sort_type = 'id';
   }
 
   filter_type(type: any) {
     this.type = type;
-    this.listService.get_data();
-    this.listService.sort_type='id';
+    this.listService.item_list = this.listService.data_json;
+    this.listService.sort_type = 'id';
   }
 
   search(val: any) {
     let value = this.filter_val.value;
-    this.filter_list = this.listService.item_list;
+    this.filter_list = this.listService.data_json;
     this.listService.item_list = value ? this.filter_list.filter((item: any) => item[this.type] ? item[this.type].toLowerCase().includes(value.toLowerCase()) : null) : this.filter_list;
     this.filter_val.patchValue('');
 

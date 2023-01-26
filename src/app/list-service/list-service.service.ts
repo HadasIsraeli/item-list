@@ -9,11 +9,10 @@ export class ListServiceService {
 
   constructor(private http: HttpClient) { }
 
-  // list_url = 'assets/json/data.json';
   list_url = 'api/list';
-
+  data_json: any;
   item_list: any;
-  sort_type: any='id';
+  sort_type: any = 'id';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,6 +21,7 @@ export class ListServiceService {
   get_data() {
     this.http.get(this.list_url).subscribe((res) => {
       this.item_list = res;
+      this.data_json = res;
     });
   }
 
@@ -50,6 +50,5 @@ export class ListServiceService {
         return parseFloat(a[type]) < parseFloat(b[type]) ? -1 : 1;
       });
     }
-
   }
 }
