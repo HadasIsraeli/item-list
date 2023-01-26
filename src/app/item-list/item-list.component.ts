@@ -11,13 +11,16 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ItemListComponent {
 
   constructor(public listService: ListServiceService) { }
-
+  page = 1;
+  count = 0;
+  tableSize = 10;
+  tableSizes = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   selected_item: any;
   selected_item_id: any;
   add_item_form = false;
   edit_item_form = false;
   filter_list: any;
-  type: any='name';
+  type: any = 'name';
 
   filter_val = new FormControl('');;
 
@@ -96,6 +99,19 @@ export class ItemListComponent {
     this.filter_list = this.listService.data_json;
     this.listService.item_list = value ? this.filter_list.filter((item: any) => item[this.type] ? item[this.type].toLowerCase().includes(value.toLowerCase()) : null) : this.filter_list;
     this.filter_val.patchValue('');
+
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.listService.item_list = this.listService.data_json;
+
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.listService.item_list = this.listService.data_json;
 
   }
 }
